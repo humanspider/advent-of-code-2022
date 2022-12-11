@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/${relativeFileDirname}"
+        },
+        {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
@@ -24,6 +33,6 @@
             "request": "launch",
             "mainClass": "day4.CampCleanup1",
             "projectName": "advent-of-code-2022_2e5d4001"
-        }
+        },
     ]
 }
