@@ -24,17 +24,25 @@ def calculate_size(node: Node) -> int:
     
     return size
 
-cleanup_total = 0
+def dir_to_delete(node: Node, min_size: int) -> tuple[str, int]:
+    if not node.children or len(node.children) == 0:
+        if node.size >= min_size:
+            return (node.name, node.size)
+        else:
+            return None
 
-def calc_cleanup_total(node: Node):
-    global cleanup_total
-    if node.size <= 100000 and node.children:
-        cleanup_total += node.size
-
-    if node.children:
-        for child in node.children:
-            calc_cleanup_total(child)
-
+    dir_list = []
+    for child in node.children:
+        dir = dir_to_delete(child, min_size)
+        if dir:
+            dir_list.append(dir)
+    if node.size >= min_size:
+        dir_list.append((node.name, node.size))
+    
+    try:
+        return min(dir_list, key=lambda x:x[1])
+    except (ValueError):
+        return None
 
 if __name__ == '__main__':
     root: Node = None
@@ -79,5 +87,5 @@ if __name__ == '__main__':
         
     # calculate dir sizes
     calculate_size(root)
-    calc_cleanup_total(root)
-    print(cleanup_total)
+    
+    print(dir_to_delete(root, 30000000-(70000000-root.size)))
